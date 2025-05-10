@@ -1,54 +1,40 @@
-require('dotenv').config();
 const express = require('express');
-const { google } = require('googleapis');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-  },
-  scopes: [
-    'https://www.googleapis.com/auth/drive.readonly',
-    'https://www.googleapis.com/auth/spreadsheets.readonly',
-  ],
-});
+// แปลง base64 กลับเป็น JSON
+const credentials = JSON.parse(
+  Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64, 'base64').toString('utf8')
+);
 
-const sheets = google.sheets({ version: 'v4', auth });
-const drive = google.drive({ version: 'v3', auth });
-
-async function getDriveIdFromSKU(sku) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.SPREADSHEET_ID,
-    range: `'${process.env.SHEET_NAME}'!A2:B`,
-  });
-  const rows = res.data.values;
-  const match = rows.find((row) => row[0] === sku);
-  return match ? match[1] : null;
-}
+const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
 
 app.get('/ar/:sku', async (req, res) => {
   try {
     const sku = req.params.sku;
-    const fileId = await getDriveIdFromSKU(sku);
-    if (!fileId) return res.status(404).send(`SKU not found: ${sku}`);
 
-    const driveRes = await drive.files.get(
-      { fileId, alt: 'media' },
-      { responseType: 'stream' }
-    );
+    await doc.useServiceAccountAuth({
+      client_email: credentials.client_email,
+      private_key: credentials.private_key.replace(/\\n/g, '\n') // สำคัญมาก!
+    });
 
-    res.setHeader('Content-Type', 'model/vnd.usdz+zip');
-    res.setHeader('Content-Disposition', 'inline');
-    driveRes.data.pipe(res);
+    await doc.loadInfo();
+    const sheet = doc.sheetsByTitle[process.env.SHEET_NAME];
+    const rows = await sheet.getRows();
+
+    const row = rows.find(r => r.SKU === sku);
+    if (!row) return res.status(404).send('SKU not found');
+
+    const fileId = row.DriveID;
+    const redirectUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    return res.redirect(redirectUrl);
   } catch (err) {
-    console.error('ERROR:', err.message);
-    res.status(500).send(`Internal Server Error:\n${err.message}`);
+    console.error(err);
+    res.status(500).send('Internal Server Error');
   }
 });
 
-app.listen(port, () => {
-  console.log(`Proxy running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Proxy server running on http://localhost:${PORT}`);
 });
-
