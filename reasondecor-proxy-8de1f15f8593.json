@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "reasondecor-proxy",
+  "private_key_id": "8de1f15f859316bf25c073eea1cd4692c8ca167b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCm9dgoHCsyLRXb\nfWtLsRM8WZ/nd2HYZON6gAgYfWnkXxZ+iYWrOAA4J3WjgztyDMuGbyY5GLcVIuvV\nPpfAsrNyPBmUSmCB95BlAOSgdapnleYXxocXll5VbsAkOUJNoRS05E/9T8/Bl/Oa\naWSnHR0bB+0a8jZ9Gg3eYn+qUuGEdrMVkjigC0QiZie/hEHl56NoC+AL5ZcieNop\npapiCl5YaGIBFNFU8b1xQMiaZI8GVM5obeE6TfnBJ5v5hI/QJ6NvllFHpaRmyIgy\nsL3ne6Xqwxkpkkn8rS3D1r/sleVhEfrdm1i+CLupksIzDwk5ftLRRX/UbUC35VRj\niYq+PGCrAgMBAAECggEAEDc6G8cvRivNKX4NwOe9YQlUDQScywodco/jJBHGNPPW\no5/oDMr0cSpv9AYdF295CEuyUC2qK9IySon47jJ3rZrQYdqJc1tf5FdzsnFLMCKw\ncChhhYp0C2MleT8wb967EUiddj0IBhr5LMrwsi8TMnAQziMD5Mmg2t5Wh5c40lxs\nIhZAkbg+6L9tZL4Y7JHrcv96H9KD+qUxnZeOgwmH/Ehjfb9/3xGqM9+kv8wfBE6q\nLidq5V7qEd2qijIN2dlwl/EuOcOpbplIN3MVPJz30o7RachE9rMB3yBsnbjmqZ7G\nT0DkDxEEIOG2/JEoUgqaite/0fGQfwTbpIljcQH9MQKBgQDU6FVAReQDsw6wVRs3\n4+Fcl6IQguFo4NYeRwzOrn1xd8Mly2ZNKzvOFjDscXMKYC2+jKxXP3VsMSIWjNj1\n7Sh3smISBydu3QF9mctXDNRY2f6+r/6tWYDV/A6JY20XgEiGRzuX+PuPvbCGlvFF\nTKEDpeeiGz8SoyO7PvuYHA6qmwKBgQDIwMkqu/JCE9SDxrFklLIauV7woUodrgMP\npJYGeiLjI3zUu//ysfNkVmjRu3IsKCxIwV5UkiuiW57JKlbAMveQqOVbj8FtWEeP\nxdeSh9kUyqBU9EU6juQBoEnjnKbGQXgP2Dlzubah/PTMlm7TCGmpEGvzF4nf89fK\n5B9fnhQ7MQKBgHSveLmnFFZqtiwyGJ7DB+pFOI8wC/X885zYd852l02uw4ddOI4m\nmbpTMzEC5HfVSnzagEG5B9PqAbK2Mtplxf4EB/e1cAk0mvKJbYYiA+dGYnWD42KC\nYTfl0tm9Yja1Ggpt091wmf6nia3Z4BWI794d+RtBL4o5WwXueNle1zLtAoGAZEew\n9VDXDdzb/ktlV2nToffRDgBzhmnjC5BahLfD75RNifKzQqdTfl6Pk5y/xoD2xg0Z\nssMlWr/LjI9CsFWFRtSnZVpk89ryPEZGjeKgNHuXJXizkDHKgWlxH2qkAEq5z6hh\n4oX1TeuO2ReYGoCMTzBtzAuJCr7Cn43egiPz1TECgYEAvTSncLiUJF2C8YeZgGBs\nLctniY6hRcn1Ec7yaqqZRmtZgjbP9C8IG0rm77P1EUMQcUuqRWHh62EneX7WU7/2\nrUIlk+fWsA1DJww6arBTXzEfBx3+8tlxemXioHkWvg2/YKahFR7INv90bSwdkhEi\nClE77JPTOTOxYLDmq+wag10=\n-----END PRIVATE KEY-----\n",
+  "client_email": "reasondecor-proxy@reasondecor-proxy.iam.gserviceaccount.com",
+  "client_id": "106657686534343238726",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/reasondecor-proxy%40reasondecor-proxy.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
