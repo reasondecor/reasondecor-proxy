@@ -7,14 +7,13 @@ const port = process.env.PORT || 3000;
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
   },
   scopes: [
     'https://www.googleapis.com/auth/drive.readonly',
-    'https://www.googleapis.com/auth/spreadsheets.readonly'
-  ]
+    'https://www.googleapis.com/auth/spreadsheets.readonly',
+  ],
 });
-
 
 const sheets = google.sheets({ version: 'v4', auth });
 const drive = google.drive({ version: 'v3', auth });
@@ -22,10 +21,10 @@ const drive = google.drive({ version: 'v3', auth });
 async function getDriveIdFromSKU(sku) {
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SPREADSHEET_ID,
-    range: `${process.env.SHEET_NAME}!A2:B`,
+    range: `'${process.env.SHEET_NAME}'!A2:B`,
   });
   const rows = res.data.values;
-  const match = rows.find(row => row[0] === sku);
+  const match = rows.find((row) => row[0] === sku);
   return match ? match[1] : null;
 }
 
@@ -33,8 +32,7 @@ app.get('/ar/:sku', async (req, res) => {
   try {
     const sku = req.params.sku;
     const fileId = await getDriveIdFromSKU(sku);
-
-    if (!fileId) return res.status(404).send('SKU not found');
+    if (!fileId) return res.status(404).send(`SKU not found: ${sku}`);
 
     const driveRes = await drive.files.get(
       { fileId, alt: 'media' },
@@ -45,11 +43,12 @@ app.get('/ar/:sku', async (req, res) => {
     res.setHeader('Content-Disposition', 'inline');
     driveRes.data.pipe(res);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal server error');
+    console.error('ERROR:', err.message);
+    res.status(500).send(`Internal Server Error:\n${err.message}`);
   }
 });
 
 app.listen(port, () => {
-  console.log(`Proxy server running on http://localhost:${port}`);
+  console.log(`Proxy running at http://localhost:${port}`);
 });
+
